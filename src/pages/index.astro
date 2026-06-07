@@ -1,0 +1,76 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+			<div class="hero">
+				<h1>Hello to codekiwifi!</h1>
+				<p>
+					Welcome to the codekiwifi website. This is a tagline, a short impactful piece of text
+					that concisely describes this website. 
+				</p>
+			</div>
+			</section>
+			<section class="dark">
+			<div class="hero">
+				<h1>Project</h1>
+				<p>
+					This is a cool project I've been building. It does a lot of things.
+				</p>
+			</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		padding: 0;
+	}
+	section {
+		padding: 3em 1em;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	section.dark {
+		background-color: rgb(var(--black));
+		color: rgb(var(--gray-light));
+	}
+	section.dark h1, section.dark p {
+		color: rgb(var(--gray-light));
+	}
+	.hero {
+		display: flex;
+		column-gap: 96px;
+		row-gap: 24px;
+		justify-content: center;
+		align-items: last baseline;
+		flex-wrap: wrap;
+		max-width: min(100%, 900px);
+	}
+	.hero > *{
+		margin: 0;
+		padding: 0;
+	}
+	.hero > h1 {
+		flex-basis: min(200px, 90%);
+	}
+	.hero > p {
+		font-size: 1.2em;
+		flex-basis: min(400px, 90%);
+	}
+</style>
