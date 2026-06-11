@@ -1,0 +1,54 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { homeContent } from '../../data/home';
+
+const { projects } = homeContent;
+const getProjectId = (href: string) => href.includes('#') ? href.split('#').at(-1) : undefined;
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title="Projets · Miel AI" description="Projets et explorations techniques de Laurent Huang autour de l’IA embarquée." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="py-16 sm:py-20">
+				<div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+					<div class="flex max-w-4xl flex-col gap-5">
+						<p class="text-sm font-semibold uppercase text-primary-950/55">Projets</p>
+						<h1 class="text-4xl font-semibold tracking-tight text-primary-950 sm:text-5xl lg:text-6xl">
+							{projects.title}
+						</h1>
+					</div>
+				</div>
+			</section>
+			<section class="pb-16 sm:pb-20" aria-label="Liste des projets">
+				<div class="mx-auto grid max-w-2xl gap-10 px-4 sm:px-6 lg:max-w-7xl lg:grid-cols-3 lg:px-8">
+					{
+						projects.items.map((project) => (
+							<article id={getProjectId(project.href)} class="flex scroll-mt-24 flex-col gap-4">
+								<div
+									class:list={[
+										'h-56 rounded-3xl sm:h-64',
+										project.visual,
+									]}
+								/>
+								<div class="flex flex-col gap-2">
+									<h2 class="text-xl font-semibold tracking-tight text-primary-950">
+										{project.name}
+									</h2>
+									<p class="text-base leading-7 text-primary-950/70">{project.description}</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

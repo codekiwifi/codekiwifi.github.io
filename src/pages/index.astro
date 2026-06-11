@@ -3,74 +3,249 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { homeContent } from '../data/home';
+
+const { articles, contact, featuredProject, hero, projects } = homeContent;
+const contactInlineCta = 'me contacter';
+const contactInlineCtaIndex = contact.description.toLowerCase().lastIndexOf(contactInlineCta);
+const contactTextBeforeCta =
+	contactInlineCtaIndex >= 0 ? contact.description.slice(0, contactInlineCtaIndex) : contact.description;
+const contactTextCta =
+	contactInlineCtaIndex >= 0
+		? contact.description.slice(contactInlineCtaIndex, contactInlineCtaIndex + contactInlineCta.length)
+		: '';
+const contactTextAfterCta =
+	contactInlineCtaIndex >= 0
+		? contact.description.slice(contactInlineCtaIndex + contactInlineCta.length)
+		: '';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-			<div class="hero">
-				<h1>Hello to codekiwifi!</h1>
-				<p>
-					Welcome to the codekiwifi website. This is a tagline, a short impactful piece of text
-					that concisely describes this website. 
-				</p>
-			</div>
+			<section class="py-16 sm:py-20">
+				<div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+					<div class="flex flex-col gap-16">
+						<div class="flex flex-col items-start gap-8 sm:gap-10">
+							<div class="flex max-w-4xl flex-col items-start">
+								<h1 class="hero-title text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+									{hero.lines.map((line) => <span class="hero-line">{line}</span>)}
+								</h1>
+							</div>
+						</div>
+						<a
+							id="projet-miel"
+							href={featuredProject.href}
+							class="bg-primary-500/10 group relative flex aspect-[2/1] min-h-[360px] w-full overflow-hidden rounded-3xl px-6 py-8 text-primary-950 no-underline transition hover:bg-primary-500/15 sm:px-10 sm:py-12 lg:px-16 lg:py-16"
+						>
+							<div
+								class="miel-scroll-layer pointer-events-none absolute -inset-6 bg-[radial-gradient(circle_at_78%_30%,rgba(155,104,30,0.48),transparent_24%),radial-gradient(circle_at_18%_84%,rgba(255,255,255,0.48),transparent_26%),linear-gradient(90deg,rgba(17,17,17,0.075)_1px,transparent_1px),linear-gradient(rgba(17,17,17,0.075)_1px,transparent_1px),linear-gradient(135deg,rgba(214,194,158,0.92),rgba(190,170,132,0.92))] bg-[length:auto,auto,44px_44px,44px_44px,auto]"
+							>
+							</div>
+							<div class="relative z-10 mt-auto flex max-w-3xl flex-col items-start gap-5">
+								<h2 class="text-5xl font-medium tracking-tight sm:text-6xl lg:text-7xl">
+									{featuredProject.title}
+								</h2>
+								<p class="max-w-xl text-base leading-7 text-primary-950/70 sm:text-lg">
+									{featuredProject.intro} - <em>{featuredProject.name}</em><br />
+									{featuredProject.description}
+									<span class="font-medium text-primary-950 group-hover:underline">
+										{featuredProject.cta}
+									</span>
+								</p>
+							</div>
+						</a>
+					</div>
+				</div>
 			</section>
-			<section class="dark">
-			<div class="hero">
-				<h1>Project</h1>
-				<p>
-					This is a cool project I've been building. It does a lot of things.
-				</p>
-			</div>
+
+			<section class="bg-primary-50 py-16 sm:py-20">
+				<div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+					<div class="flex flex-col gap-16 sm:gap-20">
+						<div class="flex flex-col gap-12 sm:gap-16">
+							<div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
+								<h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{articles.title}</h2>
+								<a
+									href={articles.moreHref}
+									class="inline-flex w-fit items-center justify-center rounded-full border border-transparent bg-primary-950 px-5 py-3 text-base font-medium text-white transition hover:bg-primary-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-950"
+								>
+									{articles.moreLabel}
+								</a>
+							</div>
+							<div class="grid gap-8 lg:grid-cols-3">
+								{
+									articles.items.map((article) => (
+										<a
+											href={article.href}
+											class="bg-primary-500/10 flex min-h-64 flex-col justify-between gap-10 rounded-3xl px-6 py-8 text-primary-950 no-underline transition hover:bg-primary-500/15"
+										>
+											<div class="flex flex-col gap-4">
+												<h4 class="text-xl font-semibold tracking-tight">{article.name}</h4>
+												<p class="text-base leading-7 text-primary-950/70">
+													{article.description}
+												</p>
+											</div>
+											<span class="text-sm font-medium text-primary-950/55">
+												{articles.cardCta}
+											</span>
+										</a>
+									))
+								}
+							</div>
+						</div>
+
+						<div class="flex flex-col gap-12 sm:gap-16">
+							<div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
+								<h3 class="text-3xl font-semibold tracking-tight sm:text-4xl">{projects.title}</h3>
+								<a
+									href={projects.moreHref}
+									class="inline-flex w-fit items-center justify-center rounded-full border border-transparent bg-primary-950 px-5 py-3 text-base font-medium text-white transition hover:bg-primary-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-950"
+								>
+									{projects.moreLabel}
+								</a>
+							</div>
+							<div class="grid gap-8 lg:grid-cols-3">
+								{
+									projects.items.map((project) => (
+										<a
+											href={project.href}
+											class="group relative flex flex-col text-primary-950 no-underline"
+										>
+											<span
+												class="pointer-events-none absolute -inset-3 rounded-3xl bg-primary-900/[0.04] opacity-0 transition-opacity group-hover:opacity-100"
+												aria-hidden="true"
+											>
+											</span>
+											<div
+												class:list={[
+													'relative z-10 h-56 rounded-3xl sm:h-64',
+													project.visual,
+												]}
+											/>
+											<div class="relative z-10 mt-4 flex flex-col gap-2">
+												<h4 class="text-xl font-semibold tracking-tight">
+													{project.name}
+												</h4>
+												<p class="text-base leading-7 text-primary-950/70">
+													{project.description}
+												</p>
+											</div>
+										</a>
+									))
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-primary-50 py-16 sm:py-20">
+				<div class="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:max-w-7xl lg:px-8">
+					<div class="bg-primary-500/10 flex flex-col items-center gap-8 rounded-3xl px-5 py-16 text-primary-950 sm:gap-10">
+						<div class="flex flex-col gap-4 sm:gap-6">
+							<h2 class="mx-auto max-w-md text-3xl font-medium tracking-tight sm:text-4xl">
+								{contact.title}
+							</h2>
+							<p class="mx-auto max-w-2xl text-base text-primary-950/70 sm:text-lg">
+								{contactTextBeforeCta}
+								{
+									contactTextCta && (
+										<a
+											href={contact.href}
+											class="inline-flex items-center rounded-full bg-primary-950 px-3 py-1 text-sm font-medium text-white transition hover:bg-primary-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-950"
+										>
+											{contactTextCta}
+										</a>
+									)
+								}
+								{contactTextAfterCta}
+							</p>
+						</div>
+					</div>
+				</div>
 			</section>
 		</main>
 		<Footer />
+		<script>
+			const mielCard = document.querySelector('#projet-miel');
+			const mielLayer = mielCard?.querySelector('.miel-scroll-layer');
+			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			if (mielCard && mielLayer && !prefersReducedMotion) {
+				let ticking = false;
+
+				const updateMielScale = () => {
+					const rect = mielCard.getBoundingClientRect();
+					const viewportHeight = window.innerHeight;
+					const start = viewportHeight * 0.9;
+					const end = viewportHeight * 0.12;
+					const progress = Math.min(Math.max((start - rect.top) / (start - end), 0), 1);
+					const scale = 1 + progress * 0.2;
+
+					mielLayer.style.transform = `scale(${scale.toFixed(4)})`;
+					ticking = false;
+				};
+
+				const requestUpdate = () => {
+					if (!ticking) {
+						window.requestAnimationFrame(updateMielScale);
+						ticking = true;
+					}
+				};
+
+				updateMielScale();
+				window.addEventListener('scroll', requestUpdate, { passive: true });
+				window.addEventListener('resize', requestUpdate);
+			}
+		</script>
 	</body>
 </html>
 
 <style>
-	main {
-		padding: 0;
+	.hero-title {
+		overflow: hidden;
 	}
-	section {
-		padding: 3em 1em;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+
+	.hero-line {
+		display: block;
+		opacity: 0;
+		transform: translateY(0.55em);
+		animation: hero-line-rise 820ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 	}
-	section.dark {
-		background-color: rgb(var(--black));
-		color: rgb(var(--gray-light));
+
+	.hero-line:nth-child(2) {
+		animation-delay: 140ms;
 	}
-	section.dark h1, section.dark p {
-		color: rgb(var(--gray-light));
+
+	.miel-scroll-layer {
+		transform: scale(1);
+		transform-origin: center;
+		transition: transform 80ms linear;
+		will-change: transform;
 	}
-	.hero {
-		display: flex;
-		column-gap: 96px;
-		row-gap: 24px;
-		justify-content: center;
-		align-items: last baseline;
-		flex-wrap: wrap;
-		max-width: min(100%, 900px);
+
+	@keyframes hero-line-rise {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
-	.hero > *{
-		margin: 0;
-		padding: 0;
-	}
-	.hero > h1 {
-		flex-basis: min(200px, 90%);
-	}
-	.hero > p {
-		font-size: 1.2em;
-		flex-basis: min(400px, 90%);
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-line {
+			opacity: 1;
+			transform: none;
+			animation: none;
+		}
+
+		.miel-scroll-layer {
+			transform: none;
+			will-change: auto;
+		}
 	}
 </style>

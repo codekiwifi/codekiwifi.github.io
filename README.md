@@ -1,6 +1,6 @@
-# Codekiwifi blog
+# Miel AI
 
-*Based on Astro*
+Site personnel et professionnel de Laurent Huang autour de l’IA embarquée, des systèmes contraints et des projets expérimentaux.
 
 All commands are run from the root of the project, from a terminal:
 
@@ -12,4 +12,3 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm preview`         | Preview your build locally, before deploying     |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
-

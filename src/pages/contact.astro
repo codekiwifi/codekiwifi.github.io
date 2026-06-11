@@ -1,0 +1,47 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { homeContent } from '../data/home';
+
+const { contact } = homeContent;
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title="Contact · Miel AI" description="Contacter Laurent Huang pour échanger autour de l’IA embarquée et des systèmes intelligents contraints." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="py-16 sm:py-20">
+				<div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+					<div class="flex max-w-4xl flex-col gap-6">
+						<p class="text-sm font-semibold uppercase text-primary-950/55">Contact</p>
+						<h1 class="text-4xl font-semibold tracking-tight text-primary-950 sm:text-5xl lg:text-6xl">
+							{contact.title}
+						</h1>
+						<p class="max-w-3xl text-base leading-7 text-primary-950/70 sm:text-lg">
+							{contact.description}
+						</p>
+						<div class="flex flex-wrap items-center gap-4 pt-2">
+							<a
+								class="inline-flex w-fit items-center justify-center rounded-full border border-transparent bg-primary-950 px-5 py-3 text-base font-medium text-white transition hover:bg-primary-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-950"
+								href="https://github.com/codekiwifi"
+								target="_blank"
+								rel="noopener"
+							>
+								GitHub
+							</a>
+							<a class="text-base font-medium text-primary-950 underline" href="/">
+								Retour à l’accueil
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
